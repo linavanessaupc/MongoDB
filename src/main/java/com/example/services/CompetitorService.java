@@ -48,20 +48,18 @@ public class CompetitorService {
     }
 
     @GET
-    @Path("/get")
+    @Path("/obtener")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
-
+    public Response obtenerTodos() {
         Query q = entityManager.createQuery("select u from Competitor u order by u.surname ASC");
         List<Competitor> competitors = q.getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
 
     @POST
-    @Path("/add")
+    @Path("/agregar")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCompetitor(CompetitorDTO competitor) {
-
+    public Response crearCompetitor(CompetitorDTO competitor) {
         Competitor c = new Competitor();
         JSONObject rta = new JSONObject();
         c.setAddress(competitor.getAddress());
@@ -95,7 +93,7 @@ public class CompetitorService {
     @POST
     @Path("/vehicle")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCompetitorV(CompetitorDTO competitor) {
+    public Response creearCompetitorV(CompetitorDTO competitor) {
         Competitor c = new Competitor();
         JSONObject rta = new JSONObject();
         c.setAddress(competitor.getAddress());
@@ -107,6 +105,7 @@ public class CompetitorService {
         c.setSurname(competitor.getSurname());
         c.setTelephone(competitor.getTelephone());
         c.setVehicle(competitor.getVehicle());
+        
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(c);
@@ -128,28 +127,27 @@ public class CompetitorService {
     }
 
     @GET
-    @Path("/getsp")
+    @Path("/obtenersp")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSP() {
+    public Response obtenerTodosSP() {
         Query q = entityManager.createQuery("select u from Competitor u order by u.surname ASC");
         List<Competitor> competitors = q.getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
 
     @GET
-    @Path("/getcp/{name}")
+    @Path("/obtenercp/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCompetitorsByName(@PathParam("name") String name) {
+    public Response obtenerCompetitorsPorNombre(@PathParam("name") String name) {
         TypedQuery<Competitor> query = (TypedQuery<Competitor>) entityManager.createQuery("SELECT c FROM Competitor c WHERE c.name = :name");
         List<Competitor> competitors = query.setParameter("name", name).getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
 
-    //**************************************************************************************************************
     @POST
-    @Path("/productos")
+    @Path("/products")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCompetitorP(CompetitorDTO competitor) {
+    public Response crearCompetitorP(CompetitorDTO competitor) {
         Competitor c = new Competitor();
         JSONObject rta = new JSONObject();
         c.setAddress(competitor.getAddress());
@@ -183,9 +181,9 @@ public class CompetitorService {
     }
 
     @GET
-    @Path("/getProd")
+    @Path("/obtenerProd")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllP() {
+    public Response obtenerTodosP() {
         List<Producto> productos;
         productos = new ArrayList();
         Query q = entityManager.createQuery("select u from Competitor u order by u.surname ASC");
@@ -197,18 +195,18 @@ public class CompetitorService {
     }
 
     @GET
-    @Path("/getL/{letra}")
+    @Path("/obtenerL/{letra}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCompetitorsByLetter(@PathParam("letra") String letra) {
+    public Response obtenerCompetitorsPorLetra(@PathParam("letra") String letra) {
         TypedQuery<Competitor> query = (TypedQuery<Competitor>) entityManager.createQuery("SELECT c FROM Competitor c WHERE c.name LIKE :letter");
         List<Competitor> competitors = query.setParameter("letter", letra + "%").getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
 
     @GET
-    @Path("/getA")
+    @Path("/obtenerA")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCompetitorsByA() {
+    public Response obtenerCompetitorsPorA() {
         TypedQuery<Competitor> query = (TypedQuery<Competitor>) entityManager.createQuery("SELECT c FROM Competitor c WHERE c.name LIKE :letter");
         List<Competitor> competitors = query.setParameter("letter", "A%").getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
