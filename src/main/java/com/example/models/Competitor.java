@@ -1,159 +1,188 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    /*
+     * To change this license header, choose License Headers in Project Properties.
+     * To change this template file, choose Tools | Templates
+     * and open the template in the editor.
+     */
+    package com.example.models;
 
-package com.example.models;
+    import com.sun.istack.NotNull;
+    import java.io.Serializable;
+    import java.util.Calendar;
+    import javax.persistence.Column;
+    import javax.persistence.Embedded;
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+    import javax.persistence.PrePersist;
+    import javax.persistence.PreUpdate;
+    import javax.persistence.Temporal;
+    import javax.persistence.TemporalType;
+    import javax.xml.bind.annotation.XmlRootElement;
+    import org.eclipse.persistence.nosql.annotations.DataFormatType;
+    import org.eclipse.persistence.nosql.annotations.Field;
+    import org.eclipse.persistence.nosql.annotations.NoSql;
 
-import com.sun.istack.NotNull;
-import java.io.Serializable;
-import java.util.Calendar;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
+    /**
+     *
+     * @author Mauricio
+     */
+    @NoSql(dataFormat = DataFormatType.MAPPED)
+    @Entity
+    @XmlRootElement
+    public class Competitor implements Serializable {
 
-/**
- *
- * @author Mauricio
- */
-@Entity
-@XmlRootElement
-public class Competitor implements Serializable{
-     private static final long serialVersionUID = 1L;
-     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    @NotNull
-    @Column(name = "create_at", updatable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar createdAt;
+        private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.DATE)
-    private Calendar updatedAt;
-    
-    private String name;
-    
-    private String surname;
-    
-    private int age;
-    
-    private String telephone;
-    
-    private String cellphone;
-    
-    private String address;
-    
-    private String city;
-    
-    private String country;
-    
-    private boolean winner;
-    //
-    
-    public Competitor(){
-        
-    }
-    
-    @PreUpdate
-    private void updateTimestamp() {
-        this.updatedAt = Calendar.getInstance();
-    }
+        @Id
+        @Field(name = "_id")
+        private String id;
 
-    @PrePersist
-    private void creationTimestamp() {
-        this.createdAt = this.updatedAt = Calendar.getInstance();
-    }
+        @NotNull
+        @Column(name = "create_at", updatable = false)
+        @Temporal(TemporalType.DATE)
+        private Calendar createdAt;
 
-    public Long getId() {
-        return id;
-    }
+        @NotNull
+        @Column(name = "updated_at")
+        @Temporal(TemporalType.DATE)
+        private Calendar updatedAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+        private String name;
 
-    public String getName() {
-        return name;
-    }
+        private String surname;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        private int age;
 
-    public String getSurname() {
-        return surname;
-    }
+        private String telephone;
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+        private String cellphone;
 
-    public int getAge() {
-        return age;
-    }
+        private String address;
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+        private String city;
 
-    public String getTelephone() {
-        return telephone;
-    }
+        private String country;
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+        private boolean winner;
 
-    public String getCellphone() {
-        return cellphone;
-    }
+        @Embedded
+        private Vehicle vehicle;
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
-    }
+        @Embedded
+        private Producto producto;
 
-    public String getAddress() {
-        return address;
-    }
+        //
+        public Competitor() {
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+        }
 
-    public String getCity() {
-        return city;
-    }
+        @PreUpdate
+        private void updateTimestamp() {
+            this.updatedAt = Calendar.getInstance();
+        }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+        @PrePersist
+        private void creationTimestamp() {
+            this.createdAt = this.updatedAt = Calendar.getInstance();
+        }
 
-    public String getCountry() {
-        return country;
-    }
+        public String getId() {
+            return id;
+        }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-    public boolean isWinner() {
-        return winner;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public void setWinner(boolean winner) {
-        this.winner = winner;
-    }
-    
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getTelephone() {
+            return telephone;
+        }
+
+        public void setTelephone(String telephone) {
+            this.telephone = telephone;
+        }
+
+        public String getCellphone() {
+            return cellphone;
+        }
+
+        public void setCellphone(String cellphone) {
+            this.cellphone = cellphone;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
+        public boolean isWinner() {
+            return winner;
+        }
+
+        public void setWinner(boolean winner) {
+            this.winner = winner;
+        }
+
+        public Vehicle getVehicle() {
+            return vehicle;
+        }
+
+        public void setVehicle(Vehicle vehicle) {
+            this.vehicle = vehicle;
+        }
+
+        public Producto getProducto() {
+            return producto;
+        }
+
+        public void setProducto(Producto producto) {
+            this.producto = producto;
+        }
+
+
+
 }

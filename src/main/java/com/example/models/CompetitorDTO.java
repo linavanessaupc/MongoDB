@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.example.models;
 
 /**
@@ -11,26 +10,29 @@ package com.example.models;
  * @author Mauricio
  */
 public class CompetitorDTO {
- 
+
     private String name;
-    
+
     private String surname;
-    
+
     private int age;
-    
+
     private String telephone;
-    
+
     private String cellphone;
-    
+
     private String address;
-    
+
     private String city;
-    
+
     private String country;
+
+    private Vehicle vehicle;
     
-    
-    public CompetitorDTO(){
-        
+    private Producto producto;
+
+    public CompetitorDTO() {
+
     }
 
     public String getName() {
@@ -96,5 +98,23 @@ public class CompetitorDTO {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
     
+    
+
 }
